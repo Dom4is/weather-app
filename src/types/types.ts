@@ -1,3 +1,12 @@
+export type TemperatureUnit = "C" | "F";
+
+export type WeatherLocation =
+  | string
+  | {
+      lat: number;
+      lon: number;
+    };
+
 export interface CurrentWeatherResponse {
   main: {
     temp: number;
@@ -7,8 +16,8 @@ export interface CurrentWeatherResponse {
   };
   weather: Array<{ description: string; icon: string }>;
   wind: { speed: number };
-  rain: {
-    "1h": number;
+  rain?: {
+    "1h"?: number;
   };
   name: string;
   dt: number;

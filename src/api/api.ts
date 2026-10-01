@@ -1,5 +1,9 @@
 import axios from "axios";
-import type { CurrentWeatherResponse, ForecastResponse } from "../types/types";
+import type {
+  CurrentWeatherResponse,
+  ForecastResponse,
+  WeatherLocation,
+} from "../types/types";
 
 const BASE_URL = "https://api.openweathermap.org";
 const API_KEY = import.meta.env.VITE_WEATHER_MAP_API_KEY;
@@ -22,23 +26,23 @@ weatherApi.interceptors.response.use(
 );
 
 export async function currentWeatherApi(
-  city: string,
+  location: WeatherLocation,
 ): Promise<CurrentWeatherResponse> {
   const response = await weatherApi.get<CurrentWeatherResponse>("/weather", {
-    params: {
-      q: city,
-    },
+    params: getLocationParams(location),
   });
   return response.data;
 }
 
 export async function forecastWeatherApi(
-  city: string,
+  location: WeatherLocation,
 ): Promise<ForecastResponse> {
   const request = await weatherApi.get<ForecastResponse>("/forecast", {
-    params: {
-      q: city,
-    },
+    params: getLocationParams(location),
   });
   return request.data;
+}
+
+function getLocationParams(location: WeatherLocation) {
+  return typeof location === "string" ? { q: location } : location;
 }
