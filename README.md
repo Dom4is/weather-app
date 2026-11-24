@@ -1,75 +1,86 @@
-# React + TypeScript + Vite
+# Weather App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Адаптивное погодное приложение на React и TypeScript с поиском по городам, геолокацией и прогнозом от OpenWeather.
 
-Currently, two official plugins are available:
+## Возможности
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Поиск актуальной погоды по названию города
+- Определение погоды по геолокации
+- Текущая температура и ощущаемая температура
+- Ветер, влажность и вероятность осадков
+- Почасовой прогноз на ближайшие 24 часа
+- Прогноз на пять дней
+- Переключение температуры между °C и °F
+- Сохранение избранных и недавних городов в `localStorage`
+- Адаптивный интерфейс для компьютера и мобильных устройств
+- Обработка ошибок загрузки и состояний поиска
 
-## React Compiler
+## Стек
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React 19
+- TypeScript
+- Vite
+- Axios
+- Tailwind CSS
+- ESLint
+- OpenWeather API
 
-## Expanding the ESLint configuration
+## Запуск проекта
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 1. Клонировать репозиторий
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+git clone https://github.com/Dom4is/weather-app.git
+cd weather-app
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Установить зависимости
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm install
 ```
+
+### 3. Настроить API-ключ
+
+Получите API-ключ на [openweathermap.org](https://openweathermap.org/api) и создайте в корне проекта файл `.env`:
+
+```env
+VITE_WEATHER_MAP_API_KEY=ваш_api_ключ
+```
+
+Файл `.env` игнорируется Git и не должен попадать в репозиторий.
+
+### 4. Запустить приложение
+
+```bash
+npm run dev
+```
+
+Локальный адрес появится в терминале, обычно это `http://localhost:5173`.
+
+## Команды
+
+```bash
+npm run dev      # Запуск сервера разработки
+npm run build    # Проверка типов и production-сборка
+npm run lint     # Проверка кода ESLint
+npm run preview  # Предпросмотр production-сборки
+```
+
+## Структура проекта
+
+```text
+src/
+├── api/            # Запросы к OpenWeather API
+├── components/     # Поиск, карточка погоды и прогноз
+├── hooks/          # Пользовательские React-хуки
+├── pages/          # Главная страница
+├── types/          # Типы TypeScript
+├── App.tsx         # Корневой компонент
+├── App.css         # Стили приложения
+└── index.css       # Глобальные стили
+```
+
+## Источник данных
+
+Данные о погоде предоставляются [OpenWeather](https://openweathermap.org/). Для работы приложения необходим действующий API-ключ.
